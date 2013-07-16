@@ -1,5 +1,6 @@
 var API_URL = 'http://localhost:3008/';
 var facts   = null;
+var cursor  = 0;
 
 var refreshFacts = function refreshFacts(limit){
 
@@ -21,15 +22,26 @@ var refreshFacts = function refreshFacts(limit){
 
 
 var changeFact = function changeFact() {
-  if(!facts) {
-    document.getElementById('loader').style.display   = 'block';
-    document.getElementById('content').style.display  = 'none';
+  if(!facts)
     return;
-  }
 
+  document.getElementById('loader').style.display   = 'block';
+  document.getElementById('content').style.display  = 'none';
+  document.getElementById('currentFact').src        = facts[cursor].picture;
+
+  console.log(cursor);
+  cursor++;
+
+  if(cursor >= facts.length)
+    cursor = 0;
+};
+
+var loader = function loader() {
   document.getElementById('loader').style.display   = 'none';
   document.getElementById('content').style.display  = 'block';
-  document.getElementById('currentFact').src        = facts[0].picture;
 };
 
 refreshFacts();
+
+document.getElementById('currentFact').addEventListener('click', changeFact);
+document.getElementById('currentFact').addEventListener('load', loader);
