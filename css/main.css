@@ -95,3 +95,7 @@ body {
 p.fact-container {
   text-align: center;
 }
+
+#currentFact {
+  cursor: pointer;
+}
